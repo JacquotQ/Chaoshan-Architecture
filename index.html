@@ -11,15 +11,33 @@
 html{scroll-behavior:smooth}
 body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:40px 40px;color:var(--ink);font-family:'Noto Sans SC',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-.idx{position:absolute;top:12px;left:14px;z-index:10;display:flex;gap:10px;font-size:9px;letter-spacing:.14em}
-.idx a{color:#000;text-decoration:none;opacity:.18;font-weight:500;transition:opacity .15s}
-.idx a:hover{opacity:.5}
-.idx a.on{opacity:1}
+/* TOP NAV */
+.topnav{position:absolute;top:12px;left:14px;z-index:10;display:flex;gap:10px;font-size:9px;letter-spacing:.14em}
+.topnav a{color:#000;text-decoration:none;opacity:.18;font-weight:500;transition:opacity .15s}
+.topnav a:hover{opacity:.5}
+.topnav a.on{opacity:1}
 .lng{position:absolute;top:12px;right:14px;z-index:10;font-size:9px;letter-spacing:.08em}
 .lng a{color:#000;text-decoration:none;opacity:.18;font-weight:500}
 .lng a.on{opacity:1}
 .lng span{opacity:.1;margin:0 3px}
 
+/* LEFT SIDE INDEX */
+.side-index{
+  position:fixed;left:14px;top:50%;transform:translateY(-50%);
+  z-index:20;
+  display:flex;flex-direction:column;gap:16px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;
+}
+.side-index a{
+  color:#000;text-decoration:none;opacity:.12;
+  writing-mode:vertical-rl;text-orientation:mixed;
+  transition:opacity .15s;
+  white-space:nowrap;
+}
+.side-index a:hover{opacity:.5}
+.side-index a.active{opacity:.8}
+
+/* HERO */
 .hero{min-height:100vh;position:relative;overflow:hidden}
 
 .hero-ghost{
@@ -33,12 +51,12 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
 .hero-ghost img{width:100%;height:auto;display:block}
 
 .hero-title{
-  position:absolute;left:3%;top:15%;
+  position:absolute;left:3%;top:10%;
   z-index:3;
   opacity:0;animation:cutIn .6s cubic-bezier(.16,1,.3,1) .1s forwards;
 }
 .hero-title img{
-  height:clamp(50px,10vw,80px);
+  height:clamp(100px,16vw,180px);
   width:auto;display:block;
 }
 
@@ -54,7 +72,8 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
 .hero-bottom{position:absolute;bottom:10px;left:14px;z-index:10;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;color:rgba(0,0,0,.15)}
 .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-35);letter-spacing:.12em;animation:fadeUp .8s ease-out 1.2s forwards,pulse 2s ease-in-out 2s infinite;opacity:0;z-index:10}
 
-.content{max-width:720px;margin:0 auto;padding:80px 28px 120px}
+/* CONTENT */
+.content{max-width:720px;margin:0 auto;padding:80px 28px 120px;padding-left:60px}
 .section{margin-bottom:80px;opacity:0;transform:translateY(20px);transition:opacity .6s ease-out,transform .6s ease-out}
 .section.visible{opacity:1;transform:translateY(0)}
 .section-num{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--ink-35);letter-spacing:.2em;margin-bottom:6px}
@@ -83,15 +102,25 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
 @media(max-width:640px){
   .content{padding:60px 20px 80px}
   .detail-strip img{width:200%;margin-left:-50%}
-  .hero-title img{height:40px}
+  .hero-title img{height:70px}
   .hero-drawing{left:0;right:-30%}
+  .side-index{display:none}
 }
 </style>
 </head>
 <body>
 
+<!-- LEFT SIDE INDEX -->
+<nav class="side-index">
+  <a href="#s1" class="active">01 三山轮廓</a>
+  <a href="#s2">02 空间逻辑</a>
+  <a href="#s3">03 材料</a>
+  <a href="#s4">04 演化</a>
+</nav>
+
+<!-- HERO -->
 <section class="hero">
-  <nav class="idx"><a href="index.html" class="on">下山虎</a><a href="#">四点金</a><a href="#">驷马拖车</a><a href="#">百鸟朝凰</a></nav>
+  <nav class="topnav"><a href="index.html" class="on">下山虎</a><a href="#">四点金</a><a href="#">驷马拖车</a><a href="#">百鸟朝凰</a></nav>
   <div class="lng"><a href="index.html" class="on">中</a><span>/</span><a href="en.html">EN</a></div>
 
   <div class="hero-ghost"><img src="images/1.svg" alt=""></div>
@@ -102,9 +131,10 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
   <div class="scroll-hint">↓</div>
 </section>
 
+<!-- CONTENT -->
 <div class="content">
 
-  <div class="section" data-anim>
+  <div class="section" id="s1" data-anim data-idx="01">
     <div class="section-num">01</div>
     <h2>三山轮廓</h2>
     <p>正立面是潮汕民居最具辨识度的面貌。中央<strong>门楼</strong>高起，两侧<strong>山墙</strong>以优美的 S 形弧线向上收拢至脊顶，形成三个高低错落的峰形——这是潮汕建筑区别于所有其他地域民居的标志。</p>
@@ -116,14 +146,14 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
     <div class="detail-label">屋脊嵌瓷装饰带</div>
   </div>
 
-  <div class="section" data-anim>
+  <div class="section" id="s2" data-anim data-idx="02">
     <div class="section-num">02</div>
     <h2>空间逻辑</h2>
     <p>下山虎是潮汕民居最基本也最常见的形制。主座三开间，中间为<strong>大厅</strong>——兼祭祀与待客，是全宅的礼仪中心；左右为<strong>大房</strong>与<strong>二房</strong>，分别由长幼居住。</p>
     <p>前方设<strong>天井</strong>，露天向上，是采光、通风与排水的核心。雨水从四面屋顶流入天井，称为"<strong>四水归堂</strong>"，象征聚财纳福。天井两侧为<strong>厝手</strong>（伸手），用作厨房或贮藏。</p>
   </div>
 
-  <div class="section" data-anim>
+  <div class="section" id="s3" data-anim data-idx="03">
     <div class="section-num">03</div>
     <h2>材料</h2>
     <div class="tags">
@@ -141,7 +171,7 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
     <div class="attr">——潮汕俗语</div>
   </div>
 
-  <div class="section" data-anim>
+  <div class="section" id="s4" data-anim data-idx="04">
     <div class="section-num">04</div>
     <h2>从下山虎到百鸟朝凰</h2>
     <p>潮汕民居形制的核心逻辑是<strong>模块化扩展</strong>：横向加开间、纵向加进落、两侧加从厝。下山虎增加前厅即为<strong>四点金</strong>；四点金再加一进成<strong>三座落</strong>；三座落两侧加从厝、外围围墙即为<strong>驷马拖车</strong>；更大规模的百间合院称<strong>百鸟朝凰</strong>。每一级都是前一级的组合与放大，反映了家族从小户到望族的成长轨迹。</p>
@@ -155,9 +185,23 @@ body{background:#fff;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transp
 </footer>
 
 <script>
-const s=document.querySelectorAll('[data-anim]');
-const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.15});
-s.forEach(x=>o.observe(x));
+const secs=document.querySelectorAll('[data-anim]');
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.15});
+secs.forEach(x=>obs.observe(x));
+
+const links=document.querySelectorAll('.side-index a');
+const sections=document.querySelectorAll('.section[id]');
+const idxObs=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      links.forEach(l=>l.classList.remove('active'));
+      const id=x.target.id;
+      const link=document.querySelector('.side-index a[href="#'+id+'"]');
+      if(link)link.classList.add('active');
+    }
+  });
+},{threshold:.3});
+sections.forEach(s=>idxObs.observe(s));
 </script>
 </body>
 </html>
