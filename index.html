@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下山虎 · 潮汕民居</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Mono:wght@300;400&display=swap');
+
+:root {
+  --ink: #1c1a14;
+  --ink-85: rgba(28,26,20,.85);
+  --ink-60: rgba(28,26,20,.60);
+  --ink-35: rgba(28,26,20,.35);
+  --ink-15: rgba(28,26,20,.15);
+  --ink-08: rgba(28,26,20,.08);
+  --paper: #f6f3eb;
+  --warm: #eee9dc;
+  --accent: #7a2e00;
+  --accent-light: rgba(122,46,0,.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 60px 24px;
+}
+
+.hero-title {
+  font-size: clamp(56px, 10vw, 96px);
+  font-weight: 200;
+  letter-spacing: .4em;
+  text-indent: .4em;
+  text-align: center;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeUp .8s ease-out .2s forwards;
+}
+
+.hero-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-60);
+  letter-spacing: .18em;
+  text-align: center;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp .8s ease-out .4s forwards;
+}
+
+.hero-drawing {
+  width: 100%;
+  max-width: 1100px;
+  opacity: 0;
+  animation: fadeUp 1s ease-out .6s forwards;
+}
+
+.hero-drawing img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.hero-caption {
+  margin-top: 32px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeUp .8s ease-out .9s forwards;
+}
+
+.hero-caption .cn {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-60);
+  letter-spacing: .1em;
+}
+
+.hero-caption .en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-35);
+  margin-top: 2px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-35);
+  letter-spacing: .12em;
+  animation: fadeUp .8s ease-out 1.2s forwards, pulse 2s ease-in-out 2s infinite;
+  opacity: 0;
+}
+
+/* ---- CONTENT ---- */
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 28px 120px;
+}
+
+.section {
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease-out, transform .6s ease-out;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+}
+
+.section h2 + .en-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-60);
+  margin-bottom: 24px;
+}
+
+.section p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2.2;
+  color: var(--ink-85);
+  margin-bottom: 16px;
+}
+
+.section p em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--ink-60);
+  font-size: 14px;
+  line-height: 2;
+  display: block;
+  margin-top: 8px;
+}
+
+.section p strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---- DETAIL DRAWING ---- */
+.detail-strip {
+  margin: 80px 0;
+  padding: 56px 0;
+  border-top: .5px solid var(--ink-15);
+  border-bottom: .5px solid var(--ink-15);
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-strip img {
+  width: 160%;
+  max-width: none;
+  margin-left: -30%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  opacity: .35;
+}
+
+.detail-label {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  text-align: right;
+}
+
+.detail-label .cn {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-60);
+  letter-spacing: .08em;
+}
+
+.detail-label .en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ink-35);
+}
+
+/* ---- DATA TABLE ---- */
+.data-block {
+  margin: 24px 0;
+  border-top: .5px solid var(--ink-15);
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  border-bottom: .5px solid var(--ink-08);
+  padding: 10px 0;
+  font-size: 13px;
+}
+
+.data-row dt {
+  font-weight: 500;
+  color: var(--ink-85);
+  letter-spacing: .04em;
+}
+
+.data-row dd {
+  font-weight: 300;
+  color: var(--ink-60);
+}
+
+.data-row dd .en-inline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--ink-35);
+  margin-left: 8px;
+}
+
+/* ---- MATERIAL TAGS ---- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 4px 12px;
+  border: .5px solid var(--ink-15);
+  color: var(--ink-60);
+  letter-spacing: .03em;
+}
+
+/* ---- QUOTE ---- */
+.quote {
+  margin: 48px 0;
+  padding: 28px 0 28px 24px;
+  border-left: 2px solid var(--accent);
+}
+
+.quote p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--ink-85);
+  letter-spacing: .06em;
+}
+
+.quote .attr {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-35);
+  margin-top: 8px;
+}
+
+/* ---- FOOTER ---- */
+.footer {
+  text-align: center;
+  padding: 48px 28px 64px;
+  border-top: .5px solid var(--ink-15);
+}
+
+.footer p {
+  font-size: 11px;
+  color: var(--ink-35);
+  font-weight: 300;
+  line-height: 2.2;
+}
+
+.footer .en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .35; }
+  50% { opacity: .6; }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 640px) {
+  .content { padding: 60px 20px 80px; }
+  .hero { padding: 48px 16px; }
+  .data-row { grid-template-columns: 80px 1fr; }
+  .detail-strip img { width: 200%; margin-left: -50%; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1 class="hero-title">下 山 虎</h1>
+  <div class="hero-en">Xià Shān Hǔ &ensp;·&ensp; Descending Tiger</div>
+  <div class="hero-drawing">
+    <img src="images/xiashanhu-front.png" alt="下山虎正立面图 Front elevation">
+  </div>
+  <div class="hero-caption">
+    <div class="cn">正立面图 &ensp;·&ensp; 潮汕传统民居基本形制</div>
+    <div class="en">Front elevation &ensp;·&ensp; The foundational Chaoshan house type</div>
+  </div>
+  <div class="scroll-hint">scroll ↓</div>
+</section>
+
+<div class="content">
+
+  <div class="section" data-anim>
+    <div class="section-num">I</div>
+    <h2>三山轮廓</h2>
+    <div class="en-sub">The Three-Peak Silhouette</div>
+    <p>
+      正立面是潮汕民居最具辨识度的面貌。中央<strong>门楼</strong>高起，两侧<strong>山墙</strong>以优美的 S 形弧线向上收拢至脊顶，形成三个高低错落的峰形——这是潮汕建筑区别于所有其他地域民居的标志。
+    </p>
+    <p>
+      山墙弧线并非纯粹的装饰。它覆盖在硬山顶两端，既保护山面不受风雨侵蚀，也以曲线柔化了建筑的体量感。弧线的弧度因地域和时期略有不同，但基本形态一脉相承。
+      <em>The three-peak silhouette is Chaoshan architecture's most distinctive signature. The central gate tower rises between two S-curved gable walls — a profile found nowhere else in Chinese vernacular architecture.</em>
+    </p>
+  </div>
+
+  <div class="detail-strip" data-anim>
+    <img src="images/xiashanhu-front.png" alt="屋脊细部">
+    <div class="detail-label">
+      <div class="cn">屋脊嵌瓷装饰带</div>
+      <div class="en">Ridge with porcelain inlay</div>
+    </div>
+  </div>
+
+  <div class="section" data-anim>
+    <div class="section-num">II</div>
+    <h2>空间逻辑</h2>
+    <div class="en-sub">Spatial Logic</div>
+    <p>
+      下山虎是潮汕民居最基本也最常见的形制。主座三开间，中间为<strong>大厅</strong>——兼祭祀与待客，是全宅的礼仪中心；左右为<strong>大房</strong>与<strong>二房</strong>，分别由长幼居住。
+    </p>
+    <p>
+      前方设<strong>天井</strong>，露天向上，是采光、通风与排水的核心。雨水从四面屋顶流入天井，称为"<strong>四水归堂</strong>"，象征聚财纳福。天井两侧为<strong>厝手</strong>（伸手），用作厨房或贮藏。
+      <em>The descending tiger is the most basic Chaoshan house. A central hall flanked by two rooms, a front skywell for light and ventilation, and two side "sleeves" for kitchen and storage. Rainwater flows inward — "four waters returning to the hall" — symbolising the gathering of fortune.</em>
+    </p>
+  </div>
+
+  <div class="section" data-anim>
+    <div class="section-num">III</div>
+    <h2>营造尺寸</h2>
+    <div class="en-sub">Dimensions</div>
+    <div class="data-block">
+      <div class="data-row"><dt>总面宽</dt><dd>约 12,000 mm<span class="en-inline">total width</span></dd></div>
+      <div class="data-row"><dt>墙高</dt><dd>2,500 mm<span class="en-inline">wall height</span></dd></div>
+      <div class="data-row"><dt>屋脊总高</dt><dd>3,800 mm<span class="en-inline">ridge height</span></dd></div>
+      <div class="data-row"><dt>脊饰区域</dt><dd>1,300 mm<span class="en-inline">ridge decoration zone</span></dd></div>
+      <div class="data-row"><dt>基座高</dt><dd>340 mm<span class="en-inline">plinth</span></dd></div>
+      <div class="data-row"><dt>门楼宽</dt><dd>约 660 mm<span class="en-inline">gate width</span></dd></div>
+    </div>
+  </div>
+
+  <div class="section" data-anim>
+    <div class="section-num">IV</div>
+    <h2>材料</h2>
+    <div class="en-sub">Materials</div>
+    <div class="tags">
+      <span class="tag">灰色琉璃瓦 grey glazed tiles</span>
+      <span class="tag">花鸟嵌瓷 porcelain inlay</span>
+      <span class="tag">浅灰色平板瓷贴 ceramic facing</span>
+      <span class="tag">仿清水青砖 blue bricks</span>
+      <span class="tag">黑色石板墙裙 stone plinth</span>
+    </div>
+    <p>
+      屋脊处饰以<strong>嵌瓷</strong>——用彩色瓷片剪裁镶嵌的装饰工艺，始于明末，盛于清代，是潮汕特有的建筑艺术。潮汕俗语"<strong>厝角头有戏出</strong>"，描述的正是屋脊上如同上演大戏般色彩斑斓的嵌瓷场景。
+      <em>Ridges are adorned with jiǎn nián — porcelain fragments cut and inlaid into figurative scenes. A Teochew proverb says "there's an opera on the rooftop."</em>
+    </p>
+  </div>
+
+  <div class="quote" data-anim>
+    <p>京都帝王府，潮州百姓家。</p>
+    <div class="attr">——潮汕俗语 &ensp;·&ensp; "The splendour of an imperial capital, in the homes of Chaozhou's common folk."</div>
+  </div>
+
+  <div class="section" data-anim>
+    <div class="section-num">V</div>
+    <h2>从下山虎到百鸟朝凰</h2>
+    <div class="en-sub">Modular Expansion</div>
+    <p>
+      潮汕民居形制的核心逻辑是<strong>模块化扩展</strong>：横向加开间、纵向加进落、两侧加从厝。下山虎增加前厅即为<strong>四点金</strong>；四点金再加一进成<strong>三座落</strong>；三座落两侧加从厝、外围围墙即为<strong>驷马拖车</strong>；更大规模的百间合院称<strong>百鸟朝凰</strong>。每一级都是前一级的组合与放大，反映了家族从小户到望族的成长轨迹。
+      <em>The modular logic: add bays horizontally, halls vertically, wings on both sides. From the simplest "descending tiger" to the grandest "hundred birds paying homage" — each type is the previous one, expanded.</em>
+    </p>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>
+    下山虎 &ensp;·&ensp; 潮汕传统民居建筑图说<br>
+    <span class="en">Xiàshānhǔ &ensp;·&ensp; Architectural Study of Chaoshan Vernacular Houses</span>
+  </p>
+  <p style="margin-top: 16px;">
+    图纸来源：AutoCAD 施工图 &ensp;·&ensp; 图像处理：Gemini<br>
+    <span class="en">Drawings from CAD construction documents</span>
+  </p>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('[data-anim]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
